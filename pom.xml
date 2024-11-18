@@ -32,6 +32,7 @@
 		<bukkit.api.version>1.21</bukkit.api.version>
 
 		<!-- dependency versions -->
+		<unite.version>1.1.7</unite.version>
 		<voicechat.version>2.1.12</voicechat.version>
 	</properties>
 
@@ -64,6 +65,12 @@
 
 	<dependencies>
 		<!-- provided dependencies -->
+		<dependency>
+			<groupId>com.github.PikaMug</groupId>
+			<artifactId>Unite</artifactId>
+			<version>${unite.version}</version>
+			<scope>provided</scope>
+		</dependency>
 		<dependency>
 			<groupId>de.maxhenkel.voicechat</groupId>
 			<artifactId>voicechat-api</artifactId>

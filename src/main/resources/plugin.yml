@@ -5,6 +5,7 @@ api-version: ${bukkit.api.version}
 
 depend:
     - Vault
+    - Unite
     - voicechat
 libraries:
     - org.projectlombok:lombok:${lombok.version}

@@ -6,8 +6,15 @@ import de.maxhenkel.voicechat.api.VoicechatApi;
 import de.maxhenkel.voicechat.api.VoicechatPlugin;
 import de.maxhenkel.voicechat.api.events.Event;
 import de.maxhenkel.voicechat.api.events.EventRegistration;
+import lombok.Getter;
 import lombok.Singleton;
 import lombok.extern.slf4j.Slf4j;
+import me.pikamug.unite.Unite;
+import me.pikamug.unite.api.objects.PartyProvider;
+import org.bukkit.Server;
+import org.bukkit.plugin.PluginManager;
+import org.bukkit.plugin.RegisteredServiceProvider;
+import org.bukkit.plugin.ServicesManager;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import world.urelion.UrelionPlugin;
@@ -24,6 +31,14 @@ import world.urelion.UrelionPlugin;
 public class PartyVoiceChatPlugin
 extends UrelionPlugin
 implements VoicechatPlugin {
+	/**
+	 * {@link PartyProvider} to get party information by {@link Unite}
+	 *
+	 * @since 1.0.0
+	 */
+	@Getter
+	private @Nullable PartyProvider partyProvider = null;
+
 	/**
 	 * @return the unique identifier of this {@link VoicechatPlugin}
 	 *
@@ -75,11 +90,26 @@ implements VoicechatPlugin {
 	@Override public void whileEnable() {
 		super.whileEnable();
 
-		final @Nullable BukkitVoicechatService
-			service =
-			this.getServer()
-				.getServicesManager()
-				.load(BukkitVoicechatService.class);
+		final @NotNull Server server = this.getServer();
+
+		final @NotNull PluginManager pluginManager = server.getPluginManager();
+		final @NotNull ServicesManager servicesManager =
+			server.getServicesManager();
+
+		if (pluginManager.getPlugin("Unite") != null) {
+			final @Nullable
+			RegisteredServiceProvider<PartyProvider> registeredServiceProvider =
+				servicesManager.getRegistration(PartyProvider.class);
+
+			if (registeredServiceProvider != null) {
+				this.partyProvider = registeredServiceProvider.getProvider();
+			}
+		}
+
+		final @Nullable BukkitVoicechatService service =
+			server.getServicesManager().load(
+				BukkitVoicechatService.class
+			);
 		if (service != null) {
 			service.registerPlugin(this);
 		}
