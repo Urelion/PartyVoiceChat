@@ -1,5 +1,7 @@
 package world.urelion.partyvoicechat;
 
+import de.maxhenkel.voicechat.api.BukkitVoicechatService;
+import de.maxhenkel.voicechat.api.Player;
 import de.maxhenkel.voicechat.api.VoicechatApi;
 import de.maxhenkel.voicechat.api.VoicechatPlugin;
 import de.maxhenkel.voicechat.api.events.Event;
@@ -10,6 +12,13 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import world.urelion.UrelionPlugin;
 
+/**
+ * main class of the {@link PartyVoiceChatPlugin},
+ * which link all {@link Player}s of one party in Voice Chat
+ *
+ * @version 1.0.0
+ * @since 1.0.0
+ */
 @Slf4j
 @Singleton(style = Singleton.Style.HOLDER)
 public class PartyVoiceChatPlugin
@@ -56,5 +65,34 @@ implements VoicechatPlugin {
 		if (eventRegistration == null) {
 			return;
 		}
+	}
+
+	/**
+	 * enables the {@link PartyVoiceChatPlugin}
+	 *
+	 * @since 1.0.0
+	 */
+	@Override public void whileEnable() {
+		super.whileEnable();
+
+		final @Nullable BukkitVoicechatService
+			service =
+			this.getServer()
+				.getServicesManager()
+				.load(BukkitVoicechatService.class);
+		if (service != null) {
+			service.registerPlugin(this);
+		}
+	}
+
+	/**
+	 * disables the {@link PartyVoiceChatPlugin}
+	 *
+	 * @since 1.0.0
+	 */
+	@Override public void whileDisable() {
+		super.whileDisable();
+
+		this.getServer().getServicesManager().unregister(this);
 	}
 }
