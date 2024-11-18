@@ -1,0 +1,13 @@
+name:        ${plugin.name}
+version:     ${project.version}
+main:        ${mainClass.fullPath}
+api-version: ${bukkit.api.version}
+
+depend:
+    - Vault
+    - voicechat
+libraries:
+    - org.projectlombok:lombok:${lombok.version}
+    - com.github.peichhorn:lombok-pg:${lombok-pg.version}
+    - org.slf4j:slf4j-api:${slf4j.version}
+    - com.guardsquare:proguard-annotations:${proguard.annotations.version}
