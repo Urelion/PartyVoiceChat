@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>world.urelion</groupId>
+		<artifactId>bukkit-plugin-parent</artifactId>
+		<version>2.1.0</version>
+	</parent>
+
+	<!-- project identifier -->
+	<artifactId>partyvoicechat</artifactId>
+	<version>1.0.0-SNAPSHOT</version>
+
+	<!-- project metadata -->
+	<name>PartyVoiceChat</name>
+	<description>
+		Talk to your party members without proximity
+	</description>
+	<inceptionYear>2024</inceptionYear>
+
+	<properties>
+		<!-- technically-based properties -->
+		<project.gitlab.id />
+		<project.module-root.artifactId>partyvoicechat</project.module-root.artifactId>
+		<project.module-root.relativedir>./</project.module-root.relativedir>
+
+		<!-- project-specific properties -->
+		<plugin.name>${project.name}</plugin.name>
+		<bukkit.api.version>1.21</bukkit.api.version>
+
+		<!-- dependency versions -->
+		<voicechat.version>2.1.12</voicechat.version>
+	</properties>
+
+	<scm>
+		<url>https://gitlab.com/${project.organization.name}/${project.module-root.artifactId}</url>
+		<connection>scm:git:${project.scm.url}.git</connection>
+		<developerConnection>${project.scm.connection}</developerConnection>
+		<tag>HEAD</tag>
+	</scm>
+
+	<distributionManagement>
+		<site>
+			<id>project-site-repo</id>
+			<url>${project.site.deploy.url}</url>
+		</site>
+	</distributionManagement>
+
+	<repositories>
+		<repository>
+			<id>urelion-bukkit-plugin</id>
+			<name>Urelion Bukkit Plugin</name>
+			<url>https://maven.pkg.github.com/Urelion/urelion-bukkit-plugin</url>
+		</repository>
+		<repository>
+			<id>henkelmax</id>
+			<name>Max Henkel</name>
+			<url>https://maven.maxhenkel.de/repository/public</url>
+		</repository>
+	</repositories>
+
+	<dependencies>
+		<!-- provided dependencies -->
+		<dependency>
+			<groupId>de.maxhenkel.voicechat</groupId>
+			<artifactId>voicechat-api</artifactId>
+			<version>${voicechat.version}</version>
+			<scope>provided</scope>
+		</dependency>
+	</dependencies>
+</project>
