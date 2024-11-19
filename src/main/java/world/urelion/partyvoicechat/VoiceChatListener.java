@@ -84,10 +84,7 @@ implements Listener {
 		VoiceChatListener.log.trace("Get player of sender.");
 		final @Nullable Object playerObject = serverPlayer.getPlayer();
 		VoiceChatListener.log.trace("Check if sender is a player.");
-		if (playerObject instanceof Player) {
-			VoiceChatListener.log.trace("Cast the sender to a player.");
-			final @NotNull Player player = (Player) playerObject;
-
+		if (playerObject instanceof @NotNull Player player) {
 			VoiceChatListener.log.trace("Check if player is in a party.");
 			if (partyProvider.isPlayerInParty(player)) {
 				VoiceChatListener.log.trace("Get party of sender.");
